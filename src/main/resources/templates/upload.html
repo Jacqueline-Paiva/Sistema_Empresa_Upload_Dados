@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload de XML</title>
+  <style>
+    body{font-family:system-ui,Arial;margin:32px;max-width:860px}
+    .card{border:1px solid #ddd;padding:20px;border-radius:8px}
+    .ok{color:green} .erro{color:#b00020}
+    .hint{color:#555}
+  </style>
+</head>
+<body>
+  <h1>Upload de XML</h1>
+  <div class="card">
+    <form method="post" enctype="multipart/form-data" action="/upload">
+      <p>Selecione um <strong>arquivo .xml</strong> no formato exigido.</p>
+      <input type="file" name="file" accept=".xml" required />
+      <button type="submit">Enviar e Importar</button>
+    </form>
+
+    <p class="erro" th:if="${msgErro}" th:text="${msgErro}"></p>
+    <p class="ok" th:if="${msgOk}" th:text="${msgOk}"></p>
+    <p th:if="${linkConsulta}">
+      Ir para <a th:href="${linkConsulta}">Consulta de Dados</a>.
+    </p>
+
+    <details>
+      <summary>Ver exemplo de XML</summary>
+      <pre class="hint">&lt;DadosEmpresa&gt;
+  &lt;Produtos&gt;
+    &lt;Produto&gt;
+      &lt;id&gt;1&lt;/id&gt;
+      &lt;nome&gt;Notebook Gamer&lt;/nome&gt;
+      &lt;descricao&gt;Processador i7, 16GB RAM, SSD 512GB&lt;/descricao&gt;
+      &lt;preco&gt;5000.00&lt;/preco&gt;
+      &lt;categoria&gt;Eletrônicos&lt;/categoria&gt;
+      &lt;estoque&gt;10&lt;/estoque&gt;
+    &lt;/Produto&gt;
+  &lt;/Produtos&gt;
+  &lt;Clientes&gt;
+    &lt;Cliente&gt;
+      &lt;id&gt;101&lt;/id&gt; &lt;nome&gt;Ana Silva&lt;/nome&gt;
+      &lt;email&gt;ana.silva@example.com&lt;/email&gt;
+      &lt;endereco&gt;Rua das Flores, 123, Centro&lt;/endereco&gt;
+      &lt;telefone&gt;+5511987654321&lt;/telefone&gt;
+    &lt;/Cliente&gt;
+  &lt;/Clientes&gt;
+&lt;/DadosEmpresa&gt;</pre>
+    </details>
+  </div>
+
+  <p class="hint">Dica: após importar, acesse <a href="/consultar-dados">/consultar-dados</a> para ver/excluir.</p>
+</body>
+</html>

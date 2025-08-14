@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"><title th:text="${acao} + ' Produto'">Produto</title>
+  <style>
+    body{font-family:system-ui,Arial;margin:32px;max-width:720px}
+    form{display:grid;gap:12px}
+    label{font-weight:600}
+    input,textarea{padding:8px;border:1px solid #ccc;border-radius:6px}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .actions{display:flex;gap:10px}
+  </style>
+</head>
+<body>
+  <h1 th:text="${acao} + ' Produto'">Produto</h1>
+  <form th:action="${acao=='Criar' ? '/produto/create' : '/produto/edit'}"
+        th:object="${produto}" method="post">
+    <!-- ID obrigatório (não geramos automaticamente) -->
+    <label>ID
+      <input type="number" th:field="*{id}" required />
+    </label>
+
+    <label>Nome
+      <input th:field="*{nome}" required />
+    </label>
+
+    <label>Descrição
+      <textarea th:field="*{descricao}" rows="3"></textarea>
+    </label>
+
+    <div class="row">
+      <label>Preço
+        <input type="number" step="0.01" th:field="*{preco}" />
+      </label>
+      <label>Categoria
+        <input th:field="*{categoria}" />
+      </label>
+    </div>
+
+    <label>Estoque
+      <input type="number" th:field="*{estoque}" />
+    </label>
+
+    <div class="actions">
+      <button type="submit" th:text="${acao}">Salvar</button>
+      <a href="/consultar-dados">Cancelar</a>
+    </div>
+  </form>
+</body>
+</html>

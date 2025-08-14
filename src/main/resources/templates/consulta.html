@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Consulta de Dados</title>
+  <style>
+    body{font-family:system-ui,Arial;margin:32px;max-width:1200px}
+    table{border-collapse:collapse;width:100%;margin:12px 0}
+    th,td{border:1px solid #ddd;padding:8px}
+    th{background:#f3f3f3;text-align:left}
+    a.btn{padding:4px 8px;border:1px solid #c00;border-radius:4px;color:#c00;text-decoration:none}
+    .top{display:flex;gap:16px;align-items:center}
+    .muted{color:#555}
+  </style>
+</head>
+<body>
+  <div class="top">
+    <h1>Consulta de Dados</h1>
+    <a href="/upload">↑ Novo upload</a>
+    <a href="/h2-console" class="muted">H2 Console</a>
+    <!-- Links para CRUDs (vamos criar no próximo passo) -->
+    <a href="/produto/create">Criar Produto</a>
+    <a href="/cliente/create">Criar Cliente</a>
+  </div>
+
+  <h2>Produtos</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th><th>Nome</th><th>Descrição</th><th>Preço</th>
+        <th>Categoria</th><th>Estoque</th><th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="p : ${produtos}">
+        <td th:text="${p.id}"></td>
+        <td th:text="${p.nome}"></td>
+        <td th:text="${p.descricao}"></td>
+        <td th:text="${#numbers.formatDecimal(p.preco,1,2)}"></td>
+        <td th:text="${p.categoria}"></td>
+        <td th:text="${p.estoque}"></td>
+        <td>
+          <a th:href="@{'/produto/delete/' + ${p.id}}" class="btn">Excluir</a>
+          <a th:href="@{'/produto/edit/' + ${p.id}}">Editar</a>
+        </td>
+      </tr>
+      <tr th:if="${#lists.isEmpty(produtos)}">
+        <td colspan="7">Nenhum produto.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Clientes</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th><th>Nome</th><th>Email</th><th>Endereço</th><th>Telefone</th><th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="c : ${clientes}">
+        <td th:text="${c.id}"></td>
+        <td th:text="${c.nome}"></td>
+        <td th:text="${c.email}"></td>
+        <td th:text="${c.endereco}"></td>
+        <td th:text="${c.telefone}"></td>
+        <td>
+          <a th:href="@{'/cliente/delete/' + ${c.id}}" class="btn">Excluir</a>
+          <a th:href="@{'/cliente/edit/' + ${c.id}}">Editar</a>
+        </td>
+      </tr>
+      <tr th:if="${#lists.isEmpty(clientes)}">
+        <td colspan="6">Nenhum cliente.</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>
